@@ -170,7 +170,7 @@ router.get('/storeMeeting/:MeetingID?/:http?/:description?/', async function(req
         {
             console.log('query statement ran successfully');
             data = Object.values(JSON.parse(JSON.stringify(rows)));
-            console.log(data.body.name);
+            console.log(data.);
         }
     });
     console.log(data);
