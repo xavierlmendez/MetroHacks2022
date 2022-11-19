@@ -1,0 +1,21 @@
+{
+  "name": "foodysWebServer",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "aws-sdk": "latest",
+    "body-parser": "^1.20.1",
+    "cors": "^2.8.5",
+    "ejs": "latest",
+    "express": "^4.18.2",
+    "helmet": "^6.0.0",
+    "morgan": "^1.10.0",
+    "mysql": "^2.18.1",
+    "node-fetch": "^3.3.0",
+    "sequelize": "^6.25.7"
+  },
+  "type": "module",
+  "scripts": {
+    "start": "node app.js"
+  }
+}
