@@ -139,9 +139,11 @@ router.get('/setPatient/:patientName?/:email?/:password?/', async function(req,r
 //  setDoctor
 //  input Doctor ID
 //  sets doctor file
-router.get('/setDoctor/:docID?/', async function(req,res){
-    const index = req.params.docID;
-    await con.query( "SELECT * FROM doctor where category_id ="+index +";" , function (err, rows, fields)
+router.get('/setDoctor/:docName?/:json?/', async function(req,res){
+    const name = req.params.docName;
+    const info = req.params.json;
+
+    await con.query( "insert into doctor (name, doctorInfo) values();" , function (err, rows, fields)
     {
         if (err) console.log(err);
         else
@@ -167,8 +169,8 @@ router.get('/storeMeeting/:MeetingID?/:http?/:description?/', async function(req
         else
         {
             console.log('query statement ran successfully');
-            data = rows;
-            console.log(data.name);
+            data = Object.values(JSON.parse(JSON.stringify(rows)));
+            console.log(data.body.name);
         }
     });
     console.log(data);
