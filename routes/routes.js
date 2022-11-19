@@ -101,9 +101,10 @@ router.get('/getDoctor/:docID?/', async function(req,res){
 //  getAudioFile
 //  input AudioFile ID
 //  returns AudioFile information in json format
+
 router.get('/getAudioFileLink/:LinkID?/', async function(req,res){
     const index = req.params.LinkID;
-    await con.query( "SELECT * FROM pastmeeting where category_id ="+index +";" , function (err, rows, fields)
+    await con.query( "SELECT audioFile FROM pastmeeting where category_id ="+index +";" , function (err, rows, fields)
     {
         if (err) console.log(err);
         else
@@ -115,12 +116,15 @@ router.get('/getAudioFileLink/:LinkID?/', async function(req,res){
     });
     res.json('data');
 })
-//  getPatient
-//  input Patient ID
-//  returns Patient information in json format
-router.get('/setPatient/:patientID?/', async function(req,res){
-    const index = req.params.patientID;
-    await con.query( "SELECT * FROM patient where user_id ="+index +";" , function (err, rows, fields)
+//  setPatient
+//  input Patient name, email, password
+//  creates a patient object in the patient database
+router.get('/setPatient/:patientName?/:email?/:password?/', async function(req,res){
+    const name = req.params.patientName;
+    const email = req.params.email;
+    const pwd = req.params.password;
+
+    await con.query( "insert into patient (username, email, password) values("+ name+","+email +","+ pwd+");" , function (err, rows, fields)
     {
         if (err) console.log(err);
         else
@@ -132,9 +136,9 @@ router.get('/setPatient/:patientID?/', async function(req,res){
     });
     res.json('data');
 })
-//  getDoctor
+//  setDoctor
 //  input Doctor ID
-//  returns Doctor information in json format
+//  sets doctor file
 router.get('/setDoctor/:docID?/', async function(req,res){
     const index = req.params.docID;
     await con.query( "SELECT * FROM doctor where category_id ="+index +";" , function (err, rows, fields)
@@ -149,9 +153,9 @@ router.get('/setDoctor/:docID?/', async function(req,res){
     });
     res.json('data');
 })
-//  getAudioFile
-//  input AudioFile ID
-//  returns AudioFile information in json format
+//  storeMeeting
+//  input Meeting id from object in meetings table, http to audio file, description
+//  creating pastmeetings object from the meetings object with the http and description
 router.get('/storeMeeting/:MeetingID?/:http?/:description?/', async function(req,res){
     const index = req.params.MeetingID;
     const http = req.params.http;
