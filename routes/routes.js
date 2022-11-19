@@ -3,12 +3,18 @@ import express from 'express';
 //code legacy from tutorial https://www.asapdevelopers.com/build-a-react-native-login-app-with-node-js-backend/
 //import { signup, login, isAuth } from '../controllers/auth.js';
 
+// const patdata = {"table1": 
+//                         { "name": { "john","carl", "earl"},
+//                             "email": {"no@yahoo", "nope@yahoo", "maybe@gmail.com"}, 
+//                             "password": {"123","123","123"}
+//                         }
+//                 }
 
 //configure the mysql connection object (delete password before upload)
     var con = mysql.createConnection({
         host: '18.205.69.32',
         user: 'admin',
-        password: '',
+        password: 'M100101s',
         database: "MetroHack",
         port: 3306
     });
@@ -25,6 +31,7 @@ const router = express.Router();
 
 //Connection test for application
 router.get('/response/', async function (req, res) {
+    
     // .connect creates a connection using the previously defined connection object 
     // and runs a function to catch errors an print err stack to console or output successful connection
     await con.connect(function(err){
@@ -46,189 +53,153 @@ router.get('/', function(req,res){
 
 
 
+
 /*  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    Testing routes do it work doe??
-    populateOrders
+    Funcationality routes 
+    getPatient
+    getDoctor
+    getAudioFile
+    setPatient
+    setDoctor
+    setAudioFile
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 */
-
-router.get('/populateAll/', async function (req, res) {
-    // .connect creates a connection using the previously defined connection object 
-    // and runs a function to catch errors an print err stack to console or output successful connection
-    await con.connect(function(err){
-        if (err){console.error('Database connection failed: ' + err.stack);
-            res.send('database connection failed');
-            throw err;
+//  getPatient
+//  input Patient ID
+//  returns Patient information in json format
+router.get('/getPatient/:patientID?/', async function(req,res){
+    const index = req.params.patientID;
+    await con.query( "SELECT * FROM patient where user_id ="+index +";" , function (err, rows, fields)
+    {
+        if (err) console.log(err);
+        else
+        {
+            console.log('query statement ran successfully');
+            let data = Object.values(JSON.parse(JSON.stringify(rows)));
+            res.json(data);
         }
-        console.log('Connected to database.');
     });
-    res.send('database connection success');
-    con.destroy;
+    res.json('data');
 })
+//  getDoctor
+//  input Doctor ID
+//  returns Doctor information in json format
+router.get('/getDoctor/:docID?/', async function(req,res){
+    const index = req.params.docID;
+    await con.query( "SELECT * FROM doctor where category_id ="+index +";" , function (err, rows, fields)
+    {
+        if (err) console.log(err);
+        else
+        {
+            console.log('query statement ran successfully');
+            let data = Object.values(JSON.parse(JSON.stringify(rows)));
+            res.json(data);
+        }
+    });
+    res.json('data');
+})
+//  getAudioFile
+//  input AudioFile ID
+//  returns AudioFile information in json format
+router.get('/getAudioFileLink/:LinkID?/', async function(req,res){
+    const index = req.params.LinkID;
+    await con.query( "SELECT * FROM pastmeeting where category_id ="+index +";" , function (err, rows, fields)
+    {
+        if (err) console.log(err);
+        else
+        {
+            console.log('query statement ran successfully');
+            let data = Object.values(JSON.parse(JSON.stringify(rows)));
+            res.json(data);
+        }
+    });
+    res.json('data');
+})
+//  getPatient
+//  input Patient ID
+//  returns Patient information in json format
+router.get('/setPatient/:patientID?/', async function(req,res){
+    const index = req.params.patientID;
+    await con.query( "SELECT * FROM patient where user_id ="+index +";" , function (err, rows, fields)
+    {
+        if (err) console.log(err);
+        else
+        {
+            console.log('query statement ran successfully');
+            let data = Object.values(JSON.parse(JSON.stringify(rows)));
+            res.json(data);
+        }
+    });
+    res.json('data');
+})
+//  getDoctor
+//  input Doctor ID
+//  returns Doctor information in json format
+router.get('/setDoctor/:docID?/', async function(req,res){
+    const index = req.params.docID;
+    await con.query( "SELECT * FROM doctor where category_id ="+index +";" , function (err, rows, fields)
+    {
+        if (err) console.log(err);
+        else
+        {
+            console.log('query statement ran successfully');
+            let data = Object.values(JSON.parse(JSON.stringify(rows)));
+            res.json(data);
+        }
+    });
+    res.json('data');
+})
+//  getAudioFile
+//  input AudioFile ID
+//  returns AudioFile information in json format
+router.get('/storeMeeting/:MeetingID?/:http?/:description?/', async function(req,res){
+    const index = req.params.MeetingID;
+    const http = req.params.http;
+    const desc = req.params.description;
+    var data;
+    await con.query( "select * from meetings where category_id ="+index +";" , function (err, rows, fields)
+    {
+        if (err) console.log(err);
+        else
+        {
+            console.log('query statement ran successfully');
+            data = rows;
+            console.log(data.name);
+        }
+    });
+    console.log(data);
+    // await con.query( "insert into pastmeetings (name, audioFile, date, patient, description) values("+ data[0]+","+http+","+data.date+","+data.patient+","+description+");" , function (err, rows, fields)
+    // {
+    //     if (err) console.log(err);
+    //     else
+    //     {
+    //         console.log('query statement ran successfully');
+    //         data = Object.values(JSON.parse(JSON.stringify(rows)));
+    //         console.log(data);
+    //     }
+    // });
+    // await con.query( "delete from meetings where category_id= "+ data.category_id+";" , function (err, rows, fields)
+    // {
+    //     if (err) console.log(err);
+    //     else
+    //     {
+    //         console.log('query statement ran successfully');
+    //         res.json(data);
+    //     }
+    // });
+    // res.json('data');
+})
+
+
+
+
+
+
 // end................................................................................................................................
 // ...................................................................................................................................
 // ...................................................................................................................................
 
 
-
-
-
-
-
-/*  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    General routes We Got the GOODIES
-    getOrder
-    getDriver
-    getRestaurant
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-*/
-//  getOrder
-//  input order ID
-//  returns order information in json format
-router.get('/getOrder/:orderID?/', async function(req,res){
-    const index = req.params.orderID;
-    await con.query( "SELECT * FROM Orders where idOrders ="+index +";" , function (err, rows, fields)
-    {
-        if (err) console.log(err);
-        else
-        {
-            console.log('query statement ran successfully');
-            let data = Object.values(JSON.parse(JSON.stringify(rows)));
-            res.json(data);
-        }
-    });
-    res.json('data');
-})
-//  getDriver
-//  input driver ID
-//  returns driver information in json format
-router.get('/getDriver/:driverID?/', async function(req,res){
-    const index = req.params.driverID;
-    await con.query( "SELECT * FROM Restaurant where idDriver ="+index +";" , function (err, rows, fields)
-    {
-        if (err) console.log(err);
-        else
-        {
-            console.log('query statement ran successfully');
-            let data = Object.values(JSON.parse(JSON.stringify(rows)));
-            res.json(data);
-        }
-    });
-    res.json('data');
-})
-//  getRestaurant
-//  input Restaurant ID
-//  returns Restaurant information in json format
-router.get('/getRestaurant/:RestaurantID?/', async function(req,res){
-    const index = req.params.index;
-    await con.query( "SELECT * FROM Restaurant where idRestaurant ="+index +";" , function (err, rows, fields)
-    {
-        if (err) console.log(err);
-        else
-        {
-            console.log('query statement ran successfully');
-            let data = Object.values(JSON.parse(JSON.stringify(rows)));
-            res.json(data);
-        }
-    });
-    res.json('data');
-})
-// end................................................................................................................................
-// ...................................................................................................................................
-// ...................................................................................................................................
-
-
-
-
-
-/*  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    driver routes vroom vroom
-    getDHistory
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-*/
-
-
-// end................................................................................................................................
-// ...................................................................................................................................
-// ...................................................................................................................................
-
-
-
-
-
-
-
-
-
-
-
-/*  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    restaurant routes YUmmmmm
-    getRestaurantsByCoordinate
-    getRHistory
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-*/
-//  getRestaurantsByCoordinate
-//  input x coordinate then y coordinate in decimal degree notation then range in miles
-//  returns restaurant information in json format
-router.get('/getRestaurantsByCoordinate/:X?/:Y?/:range?/', async function(req,res){
-    const rangeInMiles = req.params.range;
-    //miles to decimal notation is 1/60 convsersion 
-    const rangeRadiusInDecimalNotation = rangInMiles/60;
-    const xMin = req.params.X - rangeInDecimalNotation;
-    const yMin = req.params.Y - rangeInDecimalNotation;
-    const xMax = req.params.X + rangeInDecimalNotation;
-    const yMax = req.params.Y + rangeInDecimalNotation;
-    await con.query( 
-        "SELECT * FROM restaurant where xCor between "
-        + xMin +"and "+xMax+
-        " and yCor between "+
-        + yMin +"and "+yMax+
-        ";" , function (err, rows, fields)
-    {
-        if (err) console.log(err);
-        else
-        {
-            console.log('query statement ran successfully');
-            let data = Object.values(JSON.parse(JSON.stringify(rows)));
-            res.json(data);
-        }
-    });
-    res.json('data');
-})
-//  getRHistory
-//  input restaurant id 
-//  returns all orders restaurant has completed
-router.get('/getRHistory/:id?/', async function(req,res){
-    const id = req.params.id;
-    
-    await con.query( 
-        "SELECT * FROM Orders where restaurant = "+id+";" , function (err, rows, fields)
-    {
-        if (err) console.log(err);
-        else
-        {
-            console.log('query statement ran successfully');
-            let data = Object.values(JSON.parse(JSON.stringify(rows)));
-            res.json(data);
-        }
-    });
-    res.json('data');
-})
-// end................................................................................................................................
-// ...................................................................................................................................
-// ...................................................................................................................................
-
-
-
-
-
-
-/*  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    Customer route hangry
-    getDriver
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-*/
 
 // will match any other path not listed in routes
 router.use('/', (req, res, next) => {

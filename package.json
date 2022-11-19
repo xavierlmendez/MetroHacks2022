@@ -12,6 +12,7 @@
     "morgan": "^1.10.0",
     "mysql": "^2.18.1",
     "node-fetch": "^3.3.0",
+    "parse": "^3.5.0",
     "sequelize": "^6.25.7"
   },
   "type": "module",
