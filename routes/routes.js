@@ -9,7 +9,7 @@ import express from 'express';
         host: '18.205.69.32',
         user: 'admin',
         password: '',
-        database: "",
+        database: "MetroHack",
         port: 3306
     });
 
