@@ -62,7 +62,7 @@ router.get('/', function(req,res){
     getAudioFile
     setPatient
     setDoctor
-    setAudioFile
+    storeMeeting
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 */
 //  getDescription
@@ -81,7 +81,25 @@ router.get('/getDescription/:meetingID?/', async function(req,res){
         }
     });
 })
-
+//  getFile
+//  input meeting ID
+//  returns the transcript of the meeting
+router.get('/getFile/:pastMeetingID?/', async function(req,res){
+    const index = req.params.meetingID;
+    await con.query( "SELECT audioFile FROM pastmeetings where  category_id = "+index +";" , function (err, rows, fields)
+    {
+        if (err) console.log(err);
+        else
+        {
+            console.log('query statement ran successfully');
+            let data = Object.values(JSON.parse(JSON.stringify(rows)));
+            res.json(data);
+        }
+    });
+})
+//  getPatient
+//  input patient ID
+//  returns the patient profile
 router.get('/getPatient/:patientID?/', async function(req,res){
     const index = req.params.patientID;
     await con.query( "SELECT * FROM patient where user_id ="+index +";" , function (err, rows, fields)
