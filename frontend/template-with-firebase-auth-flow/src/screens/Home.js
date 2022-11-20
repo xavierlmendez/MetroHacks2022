@@ -71,6 +71,15 @@ export default function ({ navigation }) {
                 marginTop: 10,
               }}
             />
+            <Button
+              text="Go to profile screen"
+              onPress={() => {
+                navigation.navigate("profile");
+              }}
+              style={{
+                marginTop: 10,
+              }}
+            />
 
 
 

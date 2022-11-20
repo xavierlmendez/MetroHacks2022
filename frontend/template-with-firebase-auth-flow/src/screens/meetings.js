@@ -55,7 +55,7 @@ function CardList({navigation, date, summary}) {
   return <Box alignItems="center">
       <Text>    
       </Text>
-      <Pressable onPress={() => navigation.navigate("SecondScreen")} rounded="40" overflow="hidden" borderWidth="1" borderColor="coolGray.300" maxW="96" shadow="3" bg="coolGray.100" p="5">
+      <Pressable onPress={() => navigation.navigate("Note")} rounded="40" overflow="hidden" borderWidth="1" borderColor="coolGray.300" maxW="96" shadow="3" bg="coolGray.100" p="5">
         <Box>
           <HStack alignItems="center">
             <Badge colorScheme="darkBlue" _text={{
@@ -82,6 +82,4 @@ function CardList({navigation, date, summary}) {
       </Pressable>
     </Box>;
 }
-
-
 
