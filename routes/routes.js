@@ -56,6 +56,7 @@ router.get('/', function(req,res){
 
 /*  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     Funcationality routes 
+    getDescription
     getPatient
     getDoctor
     getAudioFile
@@ -67,6 +68,21 @@ router.get('/', function(req,res){
 //  getPatient
 //  input Patient ID
 //  returns Patient information in json format
+router.get('/getDescription/:meetingID?/', async function(req,res){
+    const index = req.params.meetingID;
+    await con.query( "SELECT * FROM pastmeetings where  = category_id"+index +";" , function (err, rows, fields)
+    {
+        if (err) console.log(err);
+        else
+        {
+            console.log('query statement ran successfully');
+            let data = Object.values(JSON.parse(JSON.stringify(rows)));
+            res.json(data);
+        }
+    });
+    res.json('data');
+})
+
 router.get('/getPatient/:patientID?/', async function(req,res){
     const index = req.params.patientID;
     await con.query( "SELECT * FROM patient where user_id ="+index +";" , function (err, rows, fields)
@@ -170,7 +186,7 @@ router.get('/storeMeeting/:MeetingID?/:http?/:description?/', async function(req
         {
             console.log('query statement ran successfully');
             data = Object.values(JSON.parse(JSON.stringify(rows)));
-            console.log(data.);
+            console.log(data);
         }
     });
     console.log(data);
