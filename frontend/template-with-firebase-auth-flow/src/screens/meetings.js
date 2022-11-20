@@ -9,6 +9,12 @@ import {
 } from "native-base";
 import { MaterialIcons } from "@expo/vector-icons";
 
+
+const date = ["Nov 18, 2022", "Nov 12, 2022", "Nov 4, 2022", "Oct 21, 2022"];
+
+const summary = ["Review liver health and review body blood test results from last month with Doctor Frank", "Take a CT picture with liver and check the health condition with Doctor Frank",
+"Meeting with Doctor Frank about my Liver Health & Diet", "Meeting with Doctor Frank to check my health condition and take a blood test"];
+
 export default function App({navigation}) {
   // 2. Use at the root of your app
   return (
@@ -16,19 +22,15 @@ export default function App({navigation}) {
       <ScrollView>
       <Center>
       <TopNav navigation={navigation} />
-      <CardList navigation={navigation}/>
-      <CardList navigation={navigation}/>
-      <CardList navigation={navigation}/>
-      <CardList navigation={navigation}/>
-      <CardList navigation={navigation}/>
-      <CardList navigation={navigation}/>
-      <CardList navigation={navigation}/>
+      <CardList navigation={navigation} date={date[0]} summary={summary[0]} />
+      <CardList navigation={navigation} date={date[1]} summary={summary[1]} />
+      <CardList navigation={navigation} date={date[2]} summary={summary[2]} />
+      <CardList navigation={navigation} date={date[3]} summary={summary[3]} />
       </Center>
       </ScrollView>
     </NativeBaseProvider>
   );
 }
-
 
 function TopNav({ navigation }) {
   return <>
@@ -49,7 +51,7 @@ function TopNav({ navigation }) {
     </>;
 }
 
-function CardList({navigation}) {
+function CardList({navigation, date, summary}) {
   return <Box alignItems="center">
       <Text>    
       </Text>
@@ -59,16 +61,16 @@ function CardList({navigation}) {
             <Badge colorScheme="darkBlue" _text={{
             color: "white"
           }} variant="solid" rounded="4">
-              Nov 18, 2022
+              {date}
             </Badge>
             <Spacer />
 
           </HStack>
           <Text color="coolGray.800" mt="3" fontWeight="medium" fontSize="xl">
-            Meeting
+            {summary}
           </Text>
           <Text mt="2" fontSize="sm" color="coolGray.700">
-            Meeting with Doctor Frank about my Liver Health & Diet
+            
           </Text>
 
           <Flex>
@@ -80,4 +82,6 @@ function CardList({navigation}) {
       </Pressable>
     </Box>;
 }
+
+
 
