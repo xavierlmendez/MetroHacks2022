@@ -1,8 +1,12 @@
 import mysql from 'mysql';
 import express from 'express';
+import AWS from 'aws-sdk';
 //code legacy from tutorial https://www.asapdevelopers.com/build-a-react-native-login-app-with-node-js-backend/
 //import { signup, login, isAuth } from '../controllers/auth.js';
-
+var comprehendmedical = new AWS.ComprehendMedical({
+    comprehendmedical: 2018-10-30,
+    region: 'us-east-1'
+})
 
 //configure the mysql connection object (delete password before upload)
     var con = mysql.createConnection({
@@ -21,10 +25,44 @@ import express from 'express';
 
 
 const router = express.Router();
+async function getDetails(text){
+    var params = {
+        Text: text
+    };
 
+var data = await comprehendmedical.detectEntitiesV2(params).promise();
+console.log(data);
+var diseases = [];
+for(let entity of data["Entities"]){
+    if(entity["Category"] === "MEDICAL_CONDITION"){
+        diseases.push(entity["Text"]);
+    }
+}
+console.log(diseases);
+return ("Identitfied diseases are: "+ diseases.join(", "));
+}
 
+router.post('/textFile/', async function ( req, res){
+    var text = req.body.text;
+    var id = req.body.id;
+    var diseases = getDetails(text);
+    console.log(diseases);
+    res.send(diseases);
+
+    //     await con.query( "insert into pastmeetings set found = "+diseases+" where  category_id = "+id+";" , function (err, rows, fields)
+    //     {
+    //         if (err) console.log(err);
+    //             else
+    //         {
+    //         console.log('query statement ran successfully');
+    //         let data = Object.values(JSON.parse(JSON.stringify(rows)));
+    //         res.json(data);
+    //         }
+    // });
+        }
+    )
 //Connection test for application
-router.get('/response/', async function (req, res) {
+router.get('/response/', async function (req, res) {[]
     
     // .connect creates a connection using the previously defined connection object 
     // and runs a function to catch errors an print err stack to console or output successful connection
@@ -36,7 +74,6 @@ router.get('/response/', async function (req, res) {
         console.log('Connected to database.');
     });
     res.send('database connection success');
-    con.destroy;
 })
 
 
@@ -127,7 +164,6 @@ router.get('/getDoctor/:docID?/', async function(req,res){
 //  getAudioFile
 //  input AudioFile ID
 //  returns AudioFile information in json format
-
 router.get('/getAudioFileLink/:LinkID?/', async function(req,res){
     const index = req.params.LinkID;
     await con.query( "SELECT audioFile FROM pastmeeting where category_id ="+index +";" , function (err, rows, fields)
