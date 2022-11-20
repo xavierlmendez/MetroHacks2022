@@ -24,7 +24,7 @@ import { Sequelize } from 'sequelize';
 
 import http from "http";
 import fs from 'fs';
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 3001;
 
 //         html = fs.readFileSync('index.html');
 

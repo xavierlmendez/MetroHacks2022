@@ -70,7 +70,7 @@ router.get('/', function(req,res){
 //  returns Patient information in json format
 router.get('/getDescription/:meetingID?/', async function(req,res){
     const index = req.params.meetingID;
-    await con.query( "SELECT * FROM pastmeetings where  = category_id"+index +";" , function (err, rows, fields)
+    await con.query( "SELECT * FROM pastmeetings where  category_id = "+index +";" , function (err, rows, fields)
     {
         if (err) console.log(err);
         else
@@ -80,7 +80,6 @@ router.get('/getDescription/:meetingID?/', async function(req,res){
             res.json(data);
         }
     });
-    res.json('data');
 })
 
 router.get('/getPatient/:patientID?/', async function(req,res){
@@ -95,7 +94,6 @@ router.get('/getPatient/:patientID?/', async function(req,res){
             res.json(data);
         }
     });
-    res.json('data');
 })
 //  getDoctor
 //  input Doctor ID
@@ -112,7 +110,6 @@ router.get('/getDoctor/:docID?/', async function(req,res){
             res.json(data);
         }
     });
-    res.json('data');
 })
 //  getAudioFile
 //  input AudioFile ID
@@ -130,7 +127,6 @@ router.get('/getAudioFileLink/:LinkID?/', async function(req,res){
             res.json(data);
         }
     });
-    res.json('data');
 })
 //  setPatient
 //  input Patient name, email, password
@@ -150,7 +146,6 @@ router.get('/setPatient/:patientName?/:email?/:password?/', async function(req,r
             res.json(data);
         }
     });
-    res.json('data');
 })
 //  setDoctor
 //  input Doctor ID
@@ -169,7 +164,6 @@ router.get('/setDoctor/:docName?/:json?/', async function(req,res){
             res.json(data);
         }
     });
-    res.json('data');
 })
 //  storeMeeting
 //  input Meeting id from object in meetings table, http to audio file, description
