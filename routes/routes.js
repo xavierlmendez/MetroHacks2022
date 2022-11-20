@@ -12,7 +12,7 @@ var comprehendmedical = new AWS.ComprehendMedical({
     var con = mysql.createConnection({
         host: '18.205.69.32',
         user: 'admin',
-        password: 'M100101s',
+        password: '',
         database: "MetroHack",
         port: 3306
     });
