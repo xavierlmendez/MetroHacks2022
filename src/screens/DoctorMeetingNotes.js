@@ -7,8 +7,9 @@ import {
   useTheme,
 } from "react-native-rapi-ui";
 import { Ionicons } from "@expo/vector-icons";
-import { Container, Text, Heading, NativeBaseProvider, Box, VStack, Center, Skeleton, TextArea, Divider, Stack, Image, HStack, AspectRatio } from "native-base";
+import { Container, Text, Heading, NativeBaseProvider, Box, VStack, Center, Skeleton, TextArea, Divider, Stack, Image, HStack, AspectRatio, Popover, Icon, IconButton  } from "native-base";
 import { ScrollView } from 'react-native';
+import { MaterialIcons } from "@expo/vector-icons";
 
 export default function ({ navigation }) {
   const { isDarkmode, setTheme } = useTheme();
@@ -168,6 +169,12 @@ export default function ({ navigation }) {
         </Box>
 {/** Card component */}
 
+<Divider my="2" _light={{
+        bg: "muted.800"
+      }} _dark={{
+        bg: "muted.50"
+      }} />
+
 {/** Card component */}
 <Box alignItems="center">
             <Box maxW="800" rounded="lg" overflow="hidden" borderColor="coolGray.200" borderWidth="1" _dark={{
@@ -256,6 +263,8 @@ export default function ({ navigation }) {
         </Box>
         </Box> */}
 {/** Card component */}
+<IconButton icon={<Icon size="sm" as={MaterialIcons} name="chevron-left" color="black" />} onPress={() => navigation.navigate("chart")}/>
+
 </VStack>
         </Center>
         </NativeBaseProvider>

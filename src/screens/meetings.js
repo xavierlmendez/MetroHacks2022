@@ -1,6 +1,6 @@
 import React from "react";
 import { View } from "react-native";
-import { 
+import {
   NativeBaseProvider, Text, Box,
   Heading, VStack, FormControl,
   HStack, Center, StatusBar,
@@ -13,17 +13,33 @@ export default function App({navigation}) {
   // 2. Use at the root of your app
   return (
     <NativeBaseProvider>
-      <ScrollView>
-      <Center>
-      <TopNav navigation={navigation} />
-      <CardList navigation={navigation}/>
-      <CardList navigation={navigation}/>
-      <CardList navigation={navigation}/>
-      <CardList navigation={navigation}/>
-      <CardList navigation={navigation}/>
-      <CardList navigation={navigation}/>
-      <CardList navigation={navigation}/>
-      </Center>
+      <ScrollView backgroundColor="#86efac">
+        <Center>
+          <VStack space={3}>
+            <Box></Box>
+            <Box></Box>
+            <Box></Box>
+            <Box></Box>
+            <Box></Box>
+            <Box></Box>
+            <Box></Box>
+
+            <HStack space={14}>
+            <IconButton icon={<Icon size="sm" as={MaterialIcons} name="chevron-left" color="white" />} onPress={() => navigation.goBack()}/>
+            <IconButton icon={<Icon size="sm" as={MaterialIcons} name="add" color="black" />} onPress={() => navigation.navigate("chart")}/>
+              <Heading bold color="#312e81">
+                  Frank N. Stein 👨‍⚕️
+              </Heading>
+            </HStack>
+            <CardList navigation={navigation}/>
+            <CardList navigation={navigation}/>
+            <CardList navigation={navigation}/>
+            <CardList navigation={navigation}/>
+            <CardList navigation={navigation}/>
+            <CardList navigation={navigation}/>
+            <CardList navigation={navigation}/>
+          </VStack>
+        </Center>
       </ScrollView>
     </NativeBaseProvider>
   );
@@ -51,18 +67,17 @@ function TopNav({ navigation }) {
 
 function CardList({navigation}) {
   return <Box alignItems="center">
-      <Text>    
+      <Text>
       </Text>
-      <Pressable onPress={() => navigation.navigate("DoctorMeetingNotes")} rounded="40" overflow="hidden" borderWidth="1" borderColor="coolGray.300" maxW="96" shadow="3" bg="coolGray.100" p="5">
+      <Pressable onPress={() => navigation.navigate("DoctorMeetingNotes")} rounded="30" overflow="hidden" borderWidth="1" borderColor="coolGray.300" maxW="96" shadow="3" bg="coolGray.100" p="5" backgroundColor="#dcfce7">
         <Box>
           <HStack alignItems="center">
-            <Badge colorScheme="darkBlue" _text={{
+            <Badge backgroundColor="#15803d" _text={{
             color: "white"
           }} variant="solid" rounded="4">
               Nov 18, 2022
             </Badge>
             <Spacer />
-
           </HStack>
           <Text color="coolGray.800" mt="3" fontWeight="medium" fontSize="xl">
             Meeting

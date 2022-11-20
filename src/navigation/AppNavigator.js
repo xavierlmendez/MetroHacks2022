@@ -9,6 +9,8 @@ import Home from "../screens/Home";
 import SecondScreen from "../screens/SecondScreen";
 import DoctorMeetingNotes from "../screens/DoctorMeetingNotes";
 import Meetings from "../screens/meetings";
+import dashboard from "../screens/profile";
+import chart from "../screens/chart";
 
 // Auth screens
 import Login from "../screens/auth/Login";
@@ -60,6 +62,8 @@ const Main = () => {
       <MainStack.Screen name="SecondScreen" component={SecondScreen} />
       <MainStack.Screen name="DoctorMeetingNotes" component={DoctorMeetingNotes} />
       <MainStack.Screen name="Meetings" component={Meetings} />
+      <MainStack.Screen name="dashboard" component={dashboard} />
+      <MainStack.Screen name="chart" component={chart} />
     </MainStack.Navigator>
   );
 };

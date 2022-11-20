@@ -73,6 +73,15 @@ export default function ({ navigation }) {
               }}
             />
             <Button
+              text="Go to dashboard screen"
+              onPress={() => {
+                navigation.navigate("dashboard");
+              }}
+              style={{
+                marginTop: 10,
+              }}
+            />
+            <Button
               status="danger"
               text="Logout"
               onPress={() => {

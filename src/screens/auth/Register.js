@@ -21,6 +21,7 @@ export default function ({ navigation }) {
   const auth = getAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
   const [loading, setLoading] = useState(false);
 
   async function register() {
@@ -90,6 +91,18 @@ export default function ({ navigation }) {
               autoCorrect={false}
               keyboardType="email-address"
               onChangeText={(text) => setEmail(text)}
+            />
+
+            <Text>Username</Text>
+            <TextInput
+              containerStyle={{ marginTop: 15 }}
+              placeholder="Enter your username"
+              value={username}
+              autoCapitalize="none"
+              autoCompleteType="off"
+              autoCorrect={false}
+              keyboardType="username"
+              onChangeText={(text) => setUsername(text)}
             />
 
             <Text style={{ marginTop: 15 }}>Password</Text>
