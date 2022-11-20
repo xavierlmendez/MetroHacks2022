@@ -3,12 +3,6 @@ import express from 'express';
 //code legacy from tutorial https://www.asapdevelopers.com/build-a-react-native-login-app-with-node-js-backend/
 //import { signup, login, isAuth } from '../controllers/auth.js';
 
-// const patdata = {"table1": 
-//                         { "name": { "john","carl", "earl"},
-//                             "email": {"no@yahoo", "nope@yahoo", "maybe@gmail.com"}, 
-//                             "password": {"123","123","123"}
-//                         }
-//                 }
 
 //configure the mysql connection object (delete password before upload)
     var con = mysql.createConnection({
@@ -60,6 +54,7 @@ router.get('/', function(req,res){
     getPatient
     getDoctor
     getAudioFile
+    setAudioFile
     setPatient
     setDoctor
     storeMeeting
@@ -183,23 +178,56 @@ router.get('/setDoctor/:docName?/:json?/', async function(req,res){
         }
     });
 })
-//  storeMeeting
-//  input Meeting id from object in meetings table, http to audio file, description
-//  creating pastmeetings object from the meetings object with the http and description
-router.get('/storeMeeting/:MeetingID?/:http?/:description?/', async function(req,res){
+
+//setPastMeeting
+//input name audioFile date patient description
+//return success
+
+
+
+
+//storeAudioFile
+//input pastmeeting id
+router.get('/storeMeeting/:MeetingID?/:http?/', async function(req,res){
     const index = req.params.MeetingID;
     const http = req.params.http;
-    const desc = req.params.description;
     var data;
-    await con.query( "select * from meetings where category_id ="+index +";" , function (err, rows, fields)
+    await con.query( "update pastmeetings set audioFile ="+http +" where category_id ="+ MeetingID+";" , function (err, rows, fields)
     {
-        if (err) console.log(err);
+        if (err) {
+            console.log(err);
+            data = 'sqlFail';
+        }
         else
         {
             console.log('query statement ran successfully');
             data = Object.values(JSON.parse(JSON.stringify(rows)));
             console.log(data);
         }
+        res.send(data);
+    });
+})
+
+//  storeMeeting
+//  input Meeting id from object in meetings table, http to audio file, description
+//  creating pastmeetings object from the meetings object with the http and description
+router.get('/storeMeeting/:name?/:http?/:date?/:patient?/:description?/', async function(req,res){
+    const name = req.params.name;
+    const http = req.params.http;
+    const date = req.params.date;
+    const patient = req.params.patient;
+    const desc = req.params.description;
+    var data;
+    await con.query( "insert into pastmeetings (name, audioFile, date, patient, description) values("+name+","+http+","+date +","+patient+","+desc+");" , function (err, rows, fields)
+    {
+        if (err) {console.log(err); data = "sqlFailed";}
+        else
+        {
+            console.log('query statement ran successfully');
+            data = Object.values(JSON.parse(JSON.stringify(rows)));
+            console.log(data);
+        }
+        res.send(data);
     });
     console.log(data);
     // await con.query( "insert into pastmeetings (name, audioFile, date, patient, description) values("+ data[0]+","+http+","+data.date+","+data.patient+","+description+");" , function (err, rows, fields)
