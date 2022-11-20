@@ -3,7 +3,7 @@
 ![image](https://user-images.githubusercontent.com/67282772/202909392-7efe89ac-f573-42c4-ae82-1299f6dc51fa.png)
 
 
-https://media.discordapp.net/attachments/1043566148383412234/1043903215453884476/Screenshot_2022-11-20_085733.jpg?width=720&height=321
+![image](https://user-images.githubusercontent.com/67282772/202909485-ca46c4eb-418b-446b-8514-213463f5a388.png)
 
 
 ![image](https://user-images.githubusercontent.com/67282772/202909414-873ac877-e645-4ba0-8921-6da92c873954.png)
