@@ -65,9 +65,9 @@ router.get('/', function(req,res){
     setAudioFile
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 */
-//  getPatient
-//  input Patient ID
-//  returns Patient information in json format
+//  getDescription
+//  input meeting ID
+//  returns the transcript of the meeting
 router.get('/getDescription/:meetingID?/', async function(req,res){
     const index = req.params.meetingID;
     await con.query( "SELECT * FROM pastmeetings where  category_id = "+index +";" , function (err, rows, fields)
